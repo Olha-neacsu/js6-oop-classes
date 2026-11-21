@@ -72,3 +72,155 @@
 // console.log(secondPatient);
 
 //4-----------------------------------------------------------------------------
+/*
+ * Пацієнт поки що тільки зберігає дані. Навчимо його діям.
+ *
+ * 1. Додай метод getInfo(), який повертає рядок у форматі
+ *    "імʼя: N visits, M UAH" — наприклад "Alex: 2 visits, 4000 UAH".
+ * 2. Додай метод addVisit(cost), який збільшує кількість візитів на 1
+ *    і додає cost до вартості лікування.
+ * 3. Замість виведення самих пацієнтів виведи getInfo() кожного.
+ * 4. Додай firstPatient візит вартістю 1500 і знову виведи його getInfo().
+ */
+
+// class Patient {
+//   constructor(params) {
+//     this.name = params.patient;
+//     this.visitsCount = params.visits;
+//     this.treatmentCost = params.cost;
+//   }
+
+//   getInfo() {
+//     return `${this.name}: ${this.visitsCount} visits, ${this.treatmentCost} UAH`;
+//   }
+
+//   addVisits(cost) {
+//     this.visitsCount += 1;
+//     this.treatmentCost += cost;
+//   }
+// }
+
+// const firstPatient = new Patient({
+//   patient: 'Alex',
+//   visits: 2,
+//   cost: 4000,
+// });
+
+// const secondPatient = new Patient({
+//   patient: 'Nora',
+//   visits: 5,
+//   cost: 6000,
+// });
+
+// console.log(firstPatient.getInfo());
+// console.log(secondPatient.getInfo());
+
+// firstPatient.addVisits(1500);
+// console.log(firstPatient.getInfo());
+
+//5-----------------------------------------------------------------
+/*
+ * Вартість лікування можна переписати ззовні будь-яким значенням.
+ * У SmileCare так не можна: вартість лише читають, а змінюють
+ * тільки додаванням нової процедури. Сховаємо її від зовнішнього коду.
+ *
+ * 1. Зроби властивість treatmentCost приватною: #treatmentCost.
+ * 2. Додай метод getCost(), який повертає вартість лікування.
+ * 3. Додай метод addCharge(amount), який додає amount до вартості.
+ * 4. Виведи вартість firstPatient.
+ * 5. Додай firstPatient нову процедуру на 1500 і знову виведи вартість.
+ * 6. Наприкінці виведи вартість secondPatient.
+ */
+
+// class Patient {
+//   #treatmentCost;
+
+//   constructor(params) {
+//     this.name = params.patient;
+//     this.visitsCount = params.visits;
+//     this.#treatmentCost = params.cost;
+//   }
+
+//   getCost() {
+//     return this.#treatmentCost;
+//   }
+
+//   addCharge(amount) {
+//     this.#treatmentCost += amount;
+//   }
+// }
+
+// const firstPatient = new Patient({
+//   patient: 'Alex',
+//   visits: 2,
+//   cost: 4000,
+// });
+
+// const secondPatient = new Patient({
+//   patient: 'Nora',
+//   visits: 5,
+//   cost: 6000,
+// });
+
+// console.log(firstPatient.getCost());
+// firstPatient.addCharge(1500);
+// console.log(firstPatient.getCost());
+// console.log(secondPatient.getCost());
+
+//6-----------------------------------------------------------
+/*
+ * У SmileCare діє знижка за лояльність: чим більше візитів,
+ * тим більша знижка на лікування. Саме правило знижки —
+ * внутрішня політика клініки, пацієнту його знати не треба:
+ * він бачить лише кінцеву вартість.
+ *
+ * 1. Додай приватний метод #getLoyaltyDiscount(), який повертає знижку
+ *    за кількістю візитів: 5 або більше — 0.2; 3 або більше — 0.1;
+ *    інакше — 0.
+ * 2. Додай публічний метод getFinalCost(), який повертає вартість
+ *    лікування за відрахуванням знижки від #getLoyaltyDiscount().
+ * 3. Виведи кінцеву вартість firstPatient (2 візити, знижки немає).
+ * 4. Виведи кінцеву вартість secondPatient (5 візитів, знижка діє).
+ */
+
+// class Patient {
+//   #treatmentCost;
+
+//   constructor(params) {
+//     this.name = params.patient;
+//     this.visitsCount = params.visits;
+//     this.#treatmentCost = params.cost;
+//   }
+
+//   #getLoyaltyDiscount() {
+//     if (this.visitsCount >= 5) {
+//       return 0.2;
+//     } else if (this.visitsCount >= 3) {
+//       return 0.1;
+//     } else {
+//       return 0;
+//     }
+//   }
+
+//   getFinalCost() {
+//     const discount = this.#getLoyaltyDiscount();
+//     return this.#treatmentCost - this.#treatmentCost * discount;
+//   }
+// }
+
+// const firstPatient = new Patient({
+//   patient: 'Alex',
+//   visits: 2,
+//   cost: 4000,
+// });
+
+// const secondPatient = new Patient({
+//   patient: 'Nora',
+//   visits: 5,
+//   cost: 4000,
+// });
+
+// console.log(firstPatient.getFinalCost());
+// console.log(secondPatient.getFinalCost());
+
+//7----------------------------------------------
